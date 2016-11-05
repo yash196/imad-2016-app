@@ -6,17 +6,38 @@ var app = express();
 app.use(morgan('combined'));
 
 
-var articleOne={
-    title:'Article One|Yash Gupta',
-    heading:'Article One',
-    date:'Sep 5.2016',
-    content: ` 
-    <p>
-    This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.
-                </p>
-                <p>
+var articles={ 
+    'article-one':{
+        title:'Article One|Yash Gupta',
+        heading:'Article One',
+        date:'Sep 5.2016',
+        content: ` 
+        <p>
+            This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.
+        </p>
+        <p>
                     This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.
-                </p>`
+        </p>`
+        
+    },
+    'article-two':{
+        title:'Article Two|Yash Gupta',
+        heading:'Article Two',
+        date:'Sep 15,2016',
+        content: ` 
+        <p>
+            This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.},
+        </p>`
+    },
+    'article-three':{
+        title:'Article Three|Yash Gupta',
+        heading:'Article Three',
+        date:'Sep 25.2016',
+        content: ` 
+        <p>
+            This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.
+        </p>`
+    }
 };
 function createTemplate(data){
     var title=data.title;
@@ -55,8 +76,9 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req,res){
-    res.send(createTemplate(articleOne));
+app.get('/:articleName',function(req,res){
+    var articleName=req.params.articleName;
+    res.send(createTemplate(articles[articleName]));
 });
 
 app.get('/article-two',function(req,res){
